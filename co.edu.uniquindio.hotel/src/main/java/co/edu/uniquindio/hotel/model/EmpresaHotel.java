@@ -78,13 +78,14 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
 
     //metodos agregados
     //metodo que calcula el gato total de un cliente
-
     public double calcularGastoTotalCliente(String identificacion) {
         Cliente clienteExistente = buscarCliente(identificacion);
         if (clienteExistente != null) {
             double gastoTotal = 0;
-            for (Reserva reserva : clienteExistente.getListaReservasAsociadas()) {
-                gastoTotal += reserva.calcularCostoTotal();
+            for (Reserva reserva : listaReservas) {
+                if (reserva.getClienteAsociado().equals(clienteExistente)) {
+                    gastoTotal += reserva.calcularCostoTotal();
+                }
             }
             return gastoTotal;
         }
@@ -102,20 +103,22 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     }
 
     //metodo ue genera una factura para un cliente
-    public String generarFactura(String identificacionCliente) {
-        Cliente clienteExistente = buscarCliente(identificacionCliente);
+    public String generarFactura(String identificacion) {
+        Cliente clienteExistente = buscarCliente(identificacion);
         if (clienteExistente == null) {
             return "Cliente no encontrado.";
         }
         String factura = "Factura para el cliente: " + clienteExistente.getNombre() + "\n";
         factura += "Identificación: " + clienteExistente.getIdentificacion() + "\n";
         double total = 0;
-        for (Reserva reserva : clienteExistente.getListaReservasAsociadas()) {
-            double costoReserva = reserva.calcularCostoTotal();
-            factura += "Reserva: " + reserva.getFechaEntrada() + " - " + reserva.getFechaSalida() +
-                       " - Habitación: " + reserva.getHabitacionAsociada().getNumero() +
-                       " - Costo: $" + costoReserva + "\n";
-            total += costoReserva;
+        for (Reserva reserva : listaReservas) {
+            if (reserva.getClienteAsociado().equals(clienteExistente)) {
+                double costoReserva = reserva.calcularCostoTotal();
+                factura += "Reserva: " + reserva.getFechaEntrada() + " - " + reserva.getFechaSalida() +
+                           " - Habitación: " + reserva.getHabitacionAsociada().getNumero() +
+                           " - Costo: $" + costoReserva + "\n";
+                total += costoReserva;
+            }
         }
         factura += "Total a pagar: $" + total + "\n";
         return factura;
@@ -272,7 +275,7 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     public Reserva buscarReserva(Cliente cliente) {
         Reserva reservaExistente = null;
         for (Reserva reserva : getListaReservas()) {
-            if (reserva.getHabitacionAsociada().equals(cliente)) {
+            if (reserva.getClienteAsociado().equals(cliente)) {
                 reservaExistente = reserva;
                 break;
             }
@@ -328,6 +331,7 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
         }
         return servicioExistente;
     }
+
     
     
 

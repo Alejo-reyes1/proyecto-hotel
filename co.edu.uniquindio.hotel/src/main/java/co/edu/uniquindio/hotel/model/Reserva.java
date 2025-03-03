@@ -1,6 +1,7 @@
 package co.edu.uniquindio.hotel.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Reserva {
     private  LocalDate fechaEntrada;
@@ -15,7 +16,7 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
         this.clienteAsociado = clienteAsociado;
         this.habitacionAsociada = habitacionAsociada;
-        this.costoTotal = costoTotal;
+        this.costoTotal = calcularCostoTotal();
     }
 
     public Reserva() {
@@ -49,6 +50,7 @@ public class Reserva {
     }
 
     public double calcularCostoTotal() {
-        return costoTotal;
+        long dias = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+        return dias * habitacionAsociada.getPrecio();
     }
 }

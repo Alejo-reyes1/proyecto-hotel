@@ -121,6 +121,9 @@ public class Main {
             case 6:
                 calcularGastoTotalCliente(modelFactory);
                 break;
+            case 7:
+                generarFactura(modelFactory);
+                break;
         }
     }
 
@@ -129,7 +132,7 @@ public class Main {
         switch (opcionSeleccionada) {
             case 1:
                 subMenu = "1.Agregar Cliente\n" +
-                        "2.Eliminar Cliente\n" + "3.Actualizar Cliente\n" + "4.Buscar Cliente\n" + "5.Contar Reservas de Cliente\n" + "6.Calcular Gasto Total de Cliente";
+                        "2.Eliminar Cliente\n" + "3.Actualizar Cliente\n" + "4.Buscar Cliente\n" + "5.Contar Reservas de Cliente\n" + "6.Calcular Gasto Total de Cliente\n" + "7.Generar Factura";
                 break;
             case 2:
                 subMenu = "1.Agregar Reserva\n" +
@@ -142,10 +145,7 @@ public class Main {
             case 4:
                 subMenu = "1.Agregar Servicio\n" +
                         "2.Eliminar Servicio\n" + "3.Actualizar Servicio\n" + "4.Buscar Servicio";
-                break;
-            case 5:
-                subMenu = "1.Generar Factura";
-                break;  
+                break; 
         }
 
         return subMenu;
@@ -156,8 +156,7 @@ public class Main {
                 "1.Menu cliente\n" +
                 "2.Menu Reserva\n" +
                 "3.Menu Habitacion\n" +
-                "4.Menu servicio" +
-                "5.Generar Factura\n";
+                "4.Menu servicio";
 
         return menu;
     }
@@ -258,11 +257,12 @@ public class Main {
     }
 
     private static void buscarReserva(ModelFactory modelFactory) {
-        String clienteStr = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente asociado a la reserva");
-        Cliente cliente = modelFactory.buscarCliente(clienteStr);
+        String identificacion = JOptionPane.showInputDialog(null, "Ingrese la identificacion del cliente asociado a la reserva");
+        Cliente cliente = modelFactory.buscarCliente(identificacion);
         Reserva reserva = modelFactory.buscarReserva(cliente);
+        Habitacion habitacion = modelFactory.buscarHabitacion(reserva.getHabitacionAsociada().getNumero());
         boolean condicion = (reserva != null);
-        mensajeResultado(condicion, "La reserva para el cliente con nombre " + clienteStr + " fue encontrada", "La reserva no fue encontrada");
+        mensajeResultado(condicion, "La reserva para el cliente con identificacion " + identificacion + " fue encontrada y tiene la habitacion " + habitacion.getNumero(), "La reserva no fue encontrada");
     }
 
     private static void crearServicio(ModelFactory modelFactory) {
