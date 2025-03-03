@@ -1,0 +1,36 @@
+    private static void crudHabitacion(ModelFactory modelFactory) {
+        crearHabitacion(modelFactory);
+        eliminarHabitacion(modelFactory);
+        actualizarHabitacion(modelFactory);
+        buscarHabitacion(modelFactory);
+    }
+    
+
+    private static void crearCliente(ModelFactory modelFactory) {
+        String nombre = "Juan";
+        String identificacion="123";
+        String edad= "18";
+        boolean resultado = modelFactory.crearCliente(nombre,identificacion,edad);
+        notificacion(resultado, "Creado");
+    }
+
+    private static void eliminarCliente(ModelFactory modelFactory) {
+        String identificacion = "123";
+        boolean resultado = modelFactory.eliminarCliente(identificacion);
+        notificacion(resultado, "Eliminado");
+    }
+
+    private static void actualizarCliente(ModelFactory modelFactory) {
+        String nombre = "Juan";
+        String identificacion="123";
+        String edad= "20";
+        boolean resultado = modelFactory.actualizarCliente(nombre,identificacion,edad);
+        notificacion(resultado, "Actualizado");
+    }
+
+    private static void notificacion(boolean resultado, String mensaje ) {
+        if (resultado == true)
+            System.out.println("Objeto " + mensaje + " Correctamente ");
+        else
+            System.out.println("Objeto NO " + mensaje );
+    }

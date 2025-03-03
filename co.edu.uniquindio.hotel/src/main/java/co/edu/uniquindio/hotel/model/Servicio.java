@@ -10,6 +10,9 @@ public class Servicio {
         this.precio = precio;
     }
 
+    public Servicio() {
+    }
+
     public String getNombre() {
         return nombre;
     }

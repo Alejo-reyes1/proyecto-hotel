@@ -3,10 +3,9 @@ package co.edu.uniquindio.hotel.Services;
 import co.edu.uniquindio.hotel.model.Cliente;
 
 public interface IClienteCrud {
-    boolean agregarCliente(String nombre, String identificacion);
-    boolean actualizarCliente(String nombre, String identificacion);
+    boolean crearCliente(String nombre, String identificacion, String edad);
+    boolean actualizarCliente(String nombre, String identificacion, String edad);
     boolean eliminarCliente(String identificacion);
-    boolean clienteExist(String identificacion);
-    Cliente buscarCliente(String identificacionCliente);
+    Cliente buscarCliente(String identificacion);
 
 }

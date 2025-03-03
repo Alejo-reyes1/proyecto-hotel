@@ -5,11 +5,17 @@ import java.util.ArrayList;
 public class Cliente {
     private String nombre;
     private String identificacion;
+    private String edad;
     private ArrayList<Reserva> listaReservasAsociadas =new ArrayList<>();
+    private ArrayList<Cliente> clientesMayores = new ArrayList<>();
 
-    public Cliente(String nombre, String identificacion) {
+    public Cliente(String nombre, String identificacion,String edad) {
         this.nombre = nombre;
         this.identificacion = identificacion;
+        this.edad = edad;
+    }
+
+    public Cliente(){
     }
 
     public String getIdentificacion() {
@@ -31,8 +37,14 @@ public class Cliente {
     public String getNombre() {
         return nombre;
     }
+    public String getEdad() {
+        return edad;
+    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    public void setEdad(String edad) {
+        this.edad = edad;
     }
 }
