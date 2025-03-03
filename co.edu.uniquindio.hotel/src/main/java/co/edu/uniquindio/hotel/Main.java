@@ -115,6 +115,12 @@ public class Main {
             case 4:
                 buscarCliente(modelFactory);
                 break;
+            case 5:
+                contarReservasCliente(modelFactory);
+                break;
+            case 6:
+                calcularGastoTotalCliente(modelFactory);
+                break;
         }
     }
 
@@ -123,7 +129,7 @@ public class Main {
         switch (opcionSeleccionada) {
             case 1:
                 subMenu = "1.Agregar Cliente\n" +
-                        "2.Eliminar Cliente\n" + "3.Actualizar Cliente\n" + "4.Buscar Cliente";
+                        "2.Eliminar Cliente\n" + "3.Actualizar Cliente\n" + "4.Buscar Cliente\n" + "5.Contar Reservas de Cliente\n" + "6.Calcular Gasto Total de Cliente";
                 break;
             case 2:
                 subMenu = "1.Agregar Reserva\n" +
@@ -286,6 +292,26 @@ public class Main {
     private static void mensajeResultado(boolean condicion, String opcion1, String opcion2) {
         JOptionPane.showMessageDialog(null, condicion ? opcion1 : opcion2);
     }
+
+    //menu de metodos agregados
+    private static void calcularGastoTotalCliente(ModelFactory modelFactory) {
+        String clienteId = JOptionPane.showInputDialog(null, "Ingrese el ID del cliente");
+        double gastoTotal = modelFactory.calcularGastoTotalCliente(clienteId);
+        JOptionPane.showMessageDialog(null, "El gasto total del cliente es: " + gastoTotal);
+    }
+
+    private static void contarReservasCliente(ModelFactory modelFactory) {
+        String identificacion = JOptionPane.showInputDialog("Ingrese la identificación del cliente");
+        Cliente cliente = modelFactory.buscarCliente(identificacion);
+        if (cliente != null) {
+            int numeroReservas = modelFactory.contarReservasCliente(cliente);
+            JOptionPane.showMessageDialog(null, "El cliente con identificación " + identificacion + " tiene " + numeroReservas + " reservas.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
+        }
+    }
+
+    
     
     //CRUDScitos
     private static void crudCliente(ModelFactory modelFactory) {
@@ -315,8 +341,6 @@ public class Main {
         actualizarServicio(modelFactory);
         buscarServicio(modelFactory);
     }
-
-    
 
 
 }

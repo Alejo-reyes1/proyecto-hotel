@@ -9,7 +9,6 @@ public class Habitacion {
     private Reserva reservaAsociada;
     private ArrayList<ServicioHabitacion> listaServiciosAsociados;
     private ArrayList<ServicioHabitacion> serviciosHabitacion;
-    private boolean ocupada;
     private Cliente cliente;
     
 
@@ -20,7 +19,6 @@ public class Habitacion {
         this.precio = precio;
         this.listaServiciosAsociados = new ArrayList<>();
         this.serviciosHabitacion = new ArrayList<>();
-        this.ocupada = false;
         this.cliente = null;
     }
 
@@ -49,13 +47,6 @@ public class Habitacion {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }
-     public boolean isOcupada() {
-        return ocupada;
-    }
-
-    public void setOcupada(boolean ocupada) {
-        this.ocupada = ocupada;
     }
 
     public Cliente getCliente() {
@@ -89,11 +80,5 @@ public class Habitacion {
         serviciosHabitacion.add(servicioHabitacion);
     }
 
-	public void set(String tipo) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'set'");
-	}
-
-    
     
 }

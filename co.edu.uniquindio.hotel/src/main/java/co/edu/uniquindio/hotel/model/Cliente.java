@@ -6,7 +6,7 @@ public class Cliente {
     private String nombre;
     private String identificacion;
     private String edad;
-    private ArrayList<Reserva> listaReservasAsociadas =new ArrayList<>();
+    private ArrayList<Reserva> listaReservasAsociadas = new ArrayList<>();
 
     public Cliente(String nombre, String identificacion,String edad) {
         this.nombre = nombre;

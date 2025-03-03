@@ -75,6 +75,8 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     public void setListaServicios(List<Servicio> listaServicios) {
         this.listaServicios = listaServicios;
     }
+
+    //metodos agregados
     //metodo que calcula el gato total de un cliente
 
     public double calcularGastoTotalCliente(String identificacion) {
@@ -88,7 +90,6 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
         }
         return 0;
     }
-    
     //metodo que cuenta las reservas de un cliente
     public int contarReservasCliente(Cliente cliente) {
     int contador = 0;
@@ -100,27 +101,8 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     return contador;
     }
 
-    //se muestra la disponibilidad de cada habitacion
-    public void estadoHabitaciones() {
-    int habitacionesDisponibles = 0;
-    int habitacionesOcupadas = 0;
-    List<String> habitacionesOcupadasDetalles = new ArrayList<>();
+    
 
-    for (Habitacion habitacion : listaHabitaciones) {
-        if (habitacion.isOcupada()) {
-            habitacionesOcupadas++;
-            habitacionesOcupadasDetalles.add("Habitación " + habitacion.getNumero() + " ocupada por " + habitacion.getCliente().getNombre());
-        } else {
-            habitacionesDisponibles++;
-        }
-    }
-
-    System.out.println("Habitaciones disponibles: " + habitacionesDisponibles);
-    System.out.println("Habitaciones ocupadas: " + habitacionesOcupadas);
-    for (String detalle : habitacionesOcupadasDetalles) {
-        System.out.println(detalle);
-    }
-    }
 
     //CRUD Cliente
     @Override

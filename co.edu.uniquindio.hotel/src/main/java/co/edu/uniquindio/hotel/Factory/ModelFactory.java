@@ -33,6 +33,7 @@ public class ModelFactory implements IClienteCrud,IHabitacionCrud, IReservaCrud,
 
     }
 
+    //metodos que creamos
     public double calcularGastoTotalCliente(String identificacion) {
         return empresaHotel.calcularGastoTotalCliente(identificacion);
     }
@@ -40,8 +41,9 @@ public class ModelFactory implements IClienteCrud,IHabitacionCrud, IReservaCrud,
     public int contarReservasCliente(Cliente cliente) {
         return empresaHotel.contarReservasCliente(cliente);
     }
+    
 
-
+    //overrides de Cruds
     @Override
     public boolean crearCliente(String nombre, String identificacion, String edad) {
         return empresaHotel.crearCliente(nombre, identificacion, edad);
@@ -120,6 +122,5 @@ public class ModelFactory implements IClienteCrud,IHabitacionCrud, IReservaCrud,
         return empresaHotel.buscarHabitacion(numero);
     }
 
-    
 
 }
