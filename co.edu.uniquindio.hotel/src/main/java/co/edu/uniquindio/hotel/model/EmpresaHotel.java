@@ -80,10 +80,10 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     //metodo que calcula el gato total de un cliente
 
     public double calcularGastoTotalCliente(String identificacion) {
-        Cliente cliente = buscarCliente(identificacion);
-        if (cliente != null) {
+        Cliente clienteExistente = buscarCliente(identificacion);
+        if (clienteExistente != null) {
             double gastoTotal = 0;
-            for (Reserva reserva : cliente.getListaReservasAsociadas()) {
+            for (Reserva reserva : clienteExistente.getListaReservasAsociadas()) {
                 gastoTotal += reserva.calcularCostoTotal();
             }
             return gastoTotal;
@@ -101,8 +101,25 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     return contador;
     }
 
-    
-
+    //metodo ue genera una factura para un cliente
+    public String generarFactura(String identificacionCliente) {
+        Cliente clienteExistente = buscarCliente(identificacionCliente);
+        if (clienteExistente == null) {
+            return "Cliente no encontrado.";
+        }
+        String factura = "Factura para el cliente: " + clienteExistente.getNombre() + "\n";
+        factura += "Identificación: " + clienteExistente.getIdentificacion() + "\n";
+        double total = 0;
+        for (Reserva reserva : clienteExistente.getListaReservasAsociadas()) {
+            double costoReserva = reserva.calcularCostoTotal();
+            factura += "Reserva: " + reserva.getFechaEntrada() + " - " + reserva.getFechaSalida() +
+                       " - Habitación: " + reserva.getHabitacionAsociada().getNumero() +
+                       " - Costo: $" + costoReserva + "\n";
+            total += costoReserva;
+        }
+        factura += "Total a pagar: $" + total + "\n";
+        return factura;
+    }
 
     //CRUD Cliente
     @Override

@@ -41,6 +41,10 @@ public class ModelFactory implements IClienteCrud,IHabitacionCrud, IReservaCrud,
     public int contarReservasCliente(Cliente cliente) {
         return empresaHotel.contarReservasCliente(cliente);
     }
+
+    public String generarFactura(String identificacion) {
+        return empresaHotel.generarFactura(identificacion);
+    }
     
 
     //overrides de Cruds

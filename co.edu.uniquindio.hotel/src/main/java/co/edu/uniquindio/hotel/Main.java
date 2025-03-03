@@ -42,7 +42,7 @@ public class Main {
                 metodosReserva(opcionSubMenu, modelFactory);
                 break;
             case 3:
-                metodosHabitacio(opcionSubMenu, modelFactory);
+                metodosHabitacion(opcionSubMenu, modelFactory);
                 break;
             case 4:
                 metodosServicio(opcionSubMenu, modelFactory);
@@ -67,7 +67,7 @@ public class Main {
         }
     }
 
-    private static void metodosHabitacio(int opcionSubMenu, ModelFactory modelFactory) {
+    private static void metodosHabitacion(int opcionSubMenu, ModelFactory modelFactory) {
         switch (opcionSubMenu) {
             case 1:
                 crearHabitacion(modelFactory);
@@ -142,6 +142,9 @@ public class Main {
             case 4:
                 subMenu = "1.Agregar Servicio\n" +
                         "2.Eliminar Servicio\n" + "3.Actualizar Servicio\n" + "4.Buscar Servicio";
+                break;
+            case 5:
+                subMenu = "1.Generar Factura";
                 break;  
         }
 
@@ -153,7 +156,8 @@ public class Main {
                 "1.Menu cliente\n" +
                 "2.Menu Reserva\n" +
                 "3.Menu Habitacion\n" +
-                "4.Menu servicio";
+                "4.Menu servicio" +
+                "5.Generar Factura\n";
 
         return menu;
     }
@@ -311,7 +315,11 @@ public class Main {
         }
     }
 
-    
+    private static void generarFactura(ModelFactory modelFactory) {
+        String identificacion = JOptionPane.showInputDialog(null, "Ingrese la identificación del cliente");
+        String factura = modelFactory.generarFactura(identificacion);
+        JOptionPane.showMessageDialog(null, factura);
+    }
     
     //CRUDScitos
     private static void crudCliente(ModelFactory modelFactory) {
