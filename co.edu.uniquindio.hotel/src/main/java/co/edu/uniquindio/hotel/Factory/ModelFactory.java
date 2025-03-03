@@ -33,11 +33,18 @@ public class ModelFactory implements IClienteCrud,IHabitacionCrud, IReservaCrud,
 
     }
 
-    
+    public double calcularGastoTotalCliente(String identificacion) {
+        return empresaHotel.calcularGastoTotalCliente(identificacion);
+    }
+
+    public int contarReservasCliente(Cliente cliente) {
+        return empresaHotel.contarReservasCliente(cliente);
+    }
+
 
     @Override
     public boolean crearCliente(String nombre, String identificacion, String edad) {
-        return empresaHotel.crearCliente(nombre, identificacion,edad);
+        return empresaHotel.crearCliente(nombre, identificacion, edad);
     }
     @Override
     public boolean actualizarCliente(String nombre, String identificacion, String edad) {

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.uniquindio.hotel.Factory.ModelFactory;
 import co.edu.uniquindio.hotel.Services.IClienteCrud;
 import co.edu.uniquindio.hotel.Services.IHabitacionCrud;
 import co.edu.uniquindio.hotel.Services.IReservaCrud;
@@ -67,39 +66,30 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     public List<Servicio> getListaServicios() {
         return listaServicios;
     }
-
-    
-
     public ArrayList<Cliente> getClientesMayores() {
         return clientesMayores;
     }
-
     public void setClientesMayores(ArrayList<Cliente> clientesMayores) {
         this.clientesMayores = clientesMayores;
     }
-
     public void setListaServicios(List<Servicio> listaServicios) {
         this.listaServicios = listaServicios;
     }
+    //metodo que calcula el gato total de un cliente
 
-    public void agregarServicio(ServicioHabitacion servicioHabitacion, Habitacion habitacion) {
-    habitacion.agregarServicio(servicioHabitacion);
-    getListaServiciosHabitacion().add(servicioHabitacion);
-    System.out.println("Servicio agregado a la habitación " + habitacion.getNumero() + ": " + servicioHabitacion.getNombre() + " ($" + servicioHabitacion.getPrecio() + ")");
+    public double calcularGastoTotalCliente(String identificacion) {
+        Cliente cliente = buscarCliente(identificacion);
+        if (cliente != null) {
+            double gastoTotal = 0;
+            for (Reserva reserva : cliente.getListaReservasAsociadas()) {
+                gastoTotal += reserva.calcularCostoTotal();
+            }
+            return gastoTotal;
+        }
+        return 0;
     }
-    public void solicitarServicio(ServicioHabitacion servicioHabitacion, Habitacion habitacion) {
-    habitacion.agregarServicio(servicioHabitacion);
-    System.out.println(nombre + " ha solicitado el servicio: " + servicioHabitacion.getNombre());
-    }
-
-    public double calcularGastoTotal() {
-    double total = 0;
-    for (Reserva reserva : listaReservas) {
-        total += reserva.calcularCostoTotal();
-    }
-    return total;
-    }
-
+    
+    //metodo que cuenta las reservas de un cliente
     public int contarReservasCliente(Cliente cliente) {
     int contador = 0;
     for (Reserva reserva : listaReservas) {
@@ -108,25 +98,9 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
         }
     }
     return contador;
-    
-    }
-    public List<String> obtenerClientesMayores() {
-    List<String> clientesMayores = new ArrayList<>();
-
-    for (Cliente cliente : listaClientes) {
-        try {
-            int edad = Integer.parseInt(cliente.getEdad()); 
-            if (edad >= 18) {
-                clientesMayores.add(cliente.getNombre()); 
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Error al convertir la edad del cliente " + cliente.getNombre());
-        }
     }
 
-    return clientesMayores;
-    }
-    
+    //se muestra la disponibilidad de cada habitacion
     public void estadoHabitaciones() {
     int habitacionesDisponibles = 0;
     int habitacionesOcupadas = 0;
@@ -148,14 +122,12 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
     }
     }
 
-
-
     //CRUD Cliente
     @Override
     public boolean crearCliente(String nombre, String identificacion, String edad) {
         Cliente ClienteExistente = buscarCliente(identificacion);
     
-        if (ClienteExistente != null) {
+        if (ClienteExistente == null) {
             Cliente cliente=new Cliente();
             cliente.setNombre(nombre);
             cliente.setIdentificacion(identificacion);
@@ -172,6 +144,7 @@ public class EmpresaHotel implements IClienteCrud, IHabitacionCrud, IReservaCrud
         Cliente cliente=buscarCliente(identificacion);
         if(cliente!=null){
             cliente.setNombre(nombre);
+            cliente.setEdad(edad);
             return true;
         }
 

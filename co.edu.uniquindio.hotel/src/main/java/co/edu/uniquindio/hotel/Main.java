@@ -287,7 +287,7 @@ public class Main {
         JOptionPane.showMessageDialog(null, condicion ? opcion1 : opcion2);
     }
     
-    //CRUD
+    //CRUDScitos
     private static void crudCliente(ModelFactory modelFactory) {
         crearCliente(modelFactory);
         eliminarCliente(modelFactory);

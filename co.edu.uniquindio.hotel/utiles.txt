@@ -34,3 +34,23 @@
         else
             System.out.println("Objeto NO " + mensaje );
     }
+
+
+
+    ///////////////////////////////////
+    //se obtiene lista de mayores de 18 años
+    public List<String> obtenerClientesMayores() {
+    List<String> clientesMayores = new ArrayList<>();
+
+    for (Cliente cliente : listaClientes) {
+        try {
+            int edad = Integer.parseInt(cliente.getEdad()); 
+            if (edad >= 18) {
+                clientesMayores.add(cliente.getNombre()); 
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error al convertir la edad del cliente " + cliente.getNombre());
+        }
+    }
+    return clientesMayores;
+    }
