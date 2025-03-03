@@ -54,3 +54,36 @@
     }
     return clientesMayores;
     }
+////////////////////////////////////////////////
+Evaluación de tu código:
+Single Responsibility Principle (SRP):
+
+EmpresaHotel: Esta clase parece tener múltiples responsabilidades, como gestionar clientes, habitaciones, reservas y servicios. Esto viola el SRP.
+ModelFactory: Esta clase también tiene múltiples responsabilidades, como inicializar datos y delegar operaciones CRUD a EmpresaHotel. Esto viola el SRP.
+Cliente, Habitacion, Reserva, Servicio: Estas clases parecen cumplir con el SRP, ya que cada una maneja una única responsabilidad.
+Open/Closed Principle (OCP):
+
+EmpresaHotel: No parece estar diseñada para ser fácilmente extensible sin modificar su código. Esto viola el OCP.
+ModelFactory: Similar a EmpresaHotel, no parece estar diseñada para ser fácilmente extensible sin modificar su código. Esto viola el OCP.
+Liskov Substitution Principle (LSP):
+
+ServicioLimpieza, ServicioRestaurante, ServicioSpa: Estas clases heredan de Servicio y parecen cumplir con el LSP, ya que pueden ser utilizadas en lugar de Servicio sin problemas.
+Interface Segregation Principle (ISP):
+
+IClienteCrud, IHabitacionCrud, IReservaCrud, IServicioCrud: Estas interfaces parecen estar bien diseñadas y cumplen con el ISP, ya que están segregadas por funcionalidad específica.
+IModelFactoryServices: Esta interfaz parece cumplir con el ISP, ya que está enfocada en operaciones específicas relacionadas con el modelo.
+Dependency Inversion Principle (DIP):
+
+ModelFactory: Esta clase depende directamente de EmpresaHotel, lo cual viola el DIP. Debería depender de abstracciones en lugar de implementaciones concretas.
+Resumen:
+Cumple con SRP: Cliente, Habitacion, Reserva, Servicio, ServicioLimpieza, ServicioRestaurante, ServicioSpa.
+Viola SRP: EmpresaHotel, ModelFactory.
+Viola OCP: EmpresaHotel, ModelFactory.
+Cumple con LSP: ServicioLimpieza, ServicioRestaurante, ServicioSpa.
+Cumple con ISP: IClienteCrud, IHabitacionCrud, IReservaCrud, IServicioCrud, IModelFactoryServices.
+Viola DIP: ModelFactory.
+Recomendaciones:
+Refactorizar EmpresaHotel y ModelFactory para que cada clase tenga una única responsabilidad.
+Aplicar el OCP: Considera usar patrones de diseño como el patrón Estrategia o el patrón Decorador para hacer que las clases sean más extensibles sin necesidad de modificarlas.
+Aplicar el DIP: Introduce interfaces o abstracciones para que ModelFactory dependa de ellas en lugar de depender directamente de EmpresaHotel.
+Implementar estos cambios mejorará la adherencia de tu código a los principios SOLID.
